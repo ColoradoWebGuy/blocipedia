@@ -1,7 +1,6 @@
 class WikisController < ApplicationController
-
-  before_filter :authenticate_user!, except: [:index]
   before_action :set_wiki, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index]
 
   # GET /wikis
   def index
@@ -15,6 +14,7 @@ class WikisController < ApplicationController
   # GET /wikis/new
   def new
     @wiki = Wiki.new
+    @wiki.user = current_user
   end
 
   # GET /wikis/1/edit
@@ -55,6 +55,6 @@ class WikisController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def wiki_params
-      params.require(:wiki).permit(:title, :body)
+      params.require(:wiki).permit(:title, :body, :private)
     end
 end
