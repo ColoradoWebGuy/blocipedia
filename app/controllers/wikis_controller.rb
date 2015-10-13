@@ -14,7 +14,6 @@ class WikisController < ApplicationController
   # GET /wikis/new
   def new
     @wiki = Wiki.new
-    @wiki.user = current_user
   end
 
   # GET /wikis/1/edit
@@ -23,7 +22,7 @@ class WikisController < ApplicationController
 
   # POST /wikis
   def create
-    @wiki = Wiki.new(wiki_params)
+    @wiki = current_user.wikis.build(wiki_params)
 
     if @wiki.save
       redirect_to @wiki, notice: 'Wiki was successfully created.'
