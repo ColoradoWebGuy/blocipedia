@@ -9,15 +9,61 @@
 </head>
 <body>
   <div class="container">
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <% if user_signed_in? %>
-       Signed in as <%=current_user.email %>. Not you?
-      <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-    <% else %>
-      <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
-    <% end %>
+
+    <br />
+
+    <div class="flash">
+      <% if notice %>
+      <div class="alert alert-dismissible alert-info">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <%= notice %>
+      </div>
+      <% elsif alert %>
+      <div class="alert alert-dismissible alert-danger">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <%= alert %>
+      </div>
+      <% end %>
+    <div>
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <%= link_to "Blocipedia", root_path, class: "navbar-brand" %>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+          <!--<ul class="nav navbar-nav">
+            <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Link</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+                <li class="divider"></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul>-->
+
+          <ul class="nav navbar-nav navbar-right">
+            <% if user_signed_in? %>
+              <li><div class="login">Signed in as <%=current_user.email %>. Not you? - <%= link_to "Sign out", destroy_user_session_path, :method => :delete %></div></li>
+            <% else %>
+              <li><div class="login"><%= link_to "Sign up", new_user_registration_path %> | <%= link_to "Sign in", new_user_session_path %></div></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <%= yield %>
+
   </div>
 </body>
 </html>

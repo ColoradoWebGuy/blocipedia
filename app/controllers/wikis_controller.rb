@@ -33,6 +33,7 @@ class WikisController < ApplicationController
 
   # PATCH/PUT /wikis/1
   def update
+    authorize @wiki
     if @wiki.update(wiki_params)
       redirect_to @wiki, notice: 'Wiki was successfully updated.'
     else
