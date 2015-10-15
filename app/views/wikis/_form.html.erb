@@ -1,8 +1,8 @@
 <%= form_for(@wiki) do |f| %>
+
   <% if @wiki.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@wiki.errors.count, "error") %> prohibited this wiki from being saved:</h2>
-
       <ul>
       <% @wiki.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,24 +11,58 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :body %><br>
-    <%= f.text_area :body %>
-  </div>
-
-  <% if current_user.admin? || current_user.premium? %>
-    <div class="form-group">
-      <%= f.label :private, class: 'checkbox' do %>
-        <%= f.check_box :private %> Private wiki
-      <% end %>
+  <div class="row top-buffer">
+  <%= form_group_tag(@wiki.errors[:title]) do %>
+    <%= f.label :title, class: "col-lg-2 control-label" %>
+    <div class="col-lg-10">
+      <%= f.text_field :title, autocomplete: "off", class: "form-control" %>
     </div>
   <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
   </div>
+
+  <div class="row top-buffer">
+  <%= form_group_tag(@wiki.errors[:body]) do %>
+    <%= f.label :body, class: "col-lg-2 control-label" %>
+    <div class="col-lg-10">
+      <%= f.text_area :body, autocomplete: "off", class: "form-control", rows: 8%>
+
+      <div class="markdown-hints-container help-block pull-right">
+        <div class="markdown-hints">
+          <div class="markdown-bold">
+            <strong>**bold**</strong>
+          </div>
+          <div class="markdown-italic">
+            *italic*
+          </div>
+          <div class="markdown-code">
+            <code class="hljs">`code`</code>
+          </div>
+          <div class="markdown-quote">
+            <p>>quote</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkbox" style="margin-top:20px">
+      <% if current_user.admin? || current_user.premium? %>
+        <div class="form-group">
+          <%= f.label :private, class: 'checkbox' do %>
+            <%= f.check_box :private %> Private wiki
+          <% end %>
+        </div>
+      <% end %>
+      </div>
+
+    </div>
+  <% end %>
+  </div>
+
+  <div class="row top-buffer">
+    <div class="form-group">
+      <div class="col-lg-5 col-lg-offset-2">
+        <%= f.submit "Update Wiki", class: "btn btn-success btn-block" %>
+      </div>
+    </div>
+  </div>
+
 <% end %>

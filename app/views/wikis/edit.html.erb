@@ -1,6 +1,11 @@
-<h1>Editing Wiki</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @wiki %> |
-<%= link_to 'Back', wikis_path %>
+<div class="col-lg-9 col-lg-offset-1">
+  <h1>Editing Wiki</h1>
+  <div class="well clearfix">
+    <%= render 'form' %>
+  </div>
+  <div>
+    <%= link_to 'Show', @wiki %> |
+    <%= link_to 'Back', wikis_path %>
+  </div>
+</div>

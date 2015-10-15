@@ -4,3 +4,32 @@
 }
 
 .top-buffer { margin-top:20px; }
+
+.markdown-hints-container {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+.markdown-hints div {
+    margin-left: 12px;
+}
+.markdown-hints * {
+    display: inline;
+}
+.markdown-hints {
+    color: #999999;
+    font-size: 12px;
+}
+.markdown-hints .markdown-italic {
+    font-style: italic;
+    font-weight: normal;
+}
+.markdown-hints .markdown-code {
+    background-color: #e6e6e6;
+    border-radius: 5px;
+}

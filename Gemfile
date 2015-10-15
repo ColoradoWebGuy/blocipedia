@@ -41,3 +41,5 @@ source 'https://rubygems.org'
  gem "pundit"
  # money gateway
  gem 'stripe'
+ # markup
+ gem 'redcarpet'
