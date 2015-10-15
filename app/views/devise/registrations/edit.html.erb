@@ -69,13 +69,13 @@
 
 <div class="col-lg-4">
   <div class="well bs-component">
-    <h3>Account Status: <%= current_user.role.capitalize %></h3>
+    <h3>Membership Status: <%= current_user.role.capitalize %></h3>
     <% if (current_user.role != "premium") %>
       <%= form_tag charges_path do %>
         <script class='stripe-button' src="https://checkout.stripe.com/checkout.js" data-key="<%= @stripe_btn_data[:key] %>" data-amount=<%= @stripe_btn_data[:amount] %> data-description="<%= @stripe_btn_data[:description] %>" ></script>
       <% end %>
     <% else %>
-      <%= link_to "Cancel my subscription", downgrade_path, data: { confirm: "Are you sure?" }, class: "btn btn-info" %></p>
+      <%= link_to "Cancel my membership", downgrade_path, data: { confirm: "Are you sure? All of your private Wikis will become public." }, class: "btn btn-info" %></p>
     <% end %>
   </div>
 

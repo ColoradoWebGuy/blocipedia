@@ -10,7 +10,7 @@
 
   <tbody>
     <% @wikis.each do |wiki| %>
-      <tr>
+      <tr <%= "class=warning" if wiki.private == true  %>>
         <td><%= link_to wiki.title, wiki %></td>
         <td><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
         <td><%= link_to 'Destroy', wiki, method: :delete, data: { confirm: 'Are you sure?' } %></td>

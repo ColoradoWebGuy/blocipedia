@@ -4,11 +4,14 @@ class WikisController < ApplicationController
 
   # GET /wikis
   def index
-    @wikis = Wiki.all
+    @wikis = Wiki.visible_to(current_user)
   end
 
   # GET /wikis/1
   def show
+    unless @wiki.private == false || current_user.premium? || current_user.admin?
+       redirect_to wikis_url, notice: "You must be a premium user to view private wikis."
+    end
   end
 
   # GET /wikis/new

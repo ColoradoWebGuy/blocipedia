@@ -45,6 +45,9 @@ class ChargesController < ApplicationController
      # change user role back to standard
      current_user.standard!
 
+     # make all private wikis into public
+     Wiki.where(:user_id => current_user).update_all(:private => false)
+
      flash[:notice] = "Your premium membership has been successfully cancelled and switched back to a standard."
      redirect_to wikis_path(current_user)
    end
