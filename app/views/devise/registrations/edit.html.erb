@@ -1,39 +1,86 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<% @stripe_btn_data = {
+  key: "#{ Rails.configuration.stripe[:publishable_key] }",
+  description: "Premium Membership - #{current_user.email}",
+  amount: Amount.default
+} %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+<div class="col-lg-8">
+  <div class="well clearfix">
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <h2 style="margin:0;">Edit <%= resource_name.to_s.humanize %></h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, class: "form-horizontal") do |f| %>
+      <%= devise_error_messages! %>
+
+      <div class="row top-buffer">
+        <%= form_group_tag(resource.errors[:email]) do %>
+          <%= f.label :email, class: "col-lg-2 control-label" %>
+          <div class="col-lg-10">
+            <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email" %>
+          </div>
+        <% end %>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+      </div>
+
+      <div class="row top-buffer">
+      <%= form_group_tag(resource.errors[:password]) do %>
+        <%= f.label :password, class: "col-lg-2 control-label" %>
+        <div class="col-lg-10">
+          <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+          <i>(leave blank if you don't want to change it)</i>
+        </div>
+      <% end %>
+      </div>
+
+      <div class="row top-buffer">
+      <%= form_group_tag(resource.errors[:password_confirmation]) do %>
+        <%= f.label :password_confirmation, class: "col-lg-2 control-label" %>
+        <div class="col-lg-10">
+          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+        </div>
+      <% end %>
+      </div>
+
+      <div class="row top-buffer">
+      <%= form_group_tag(resource.errors[:current_password]) do %>
+        <%= f.label :current_password, class: "col-lg-2 control-label" %>
+        <div class="col-lg-10">
+          <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
+          <i>(we need your current password to confirm your changes)</i><br />
+        </div>
+      <% end %>
+      </div>
+
+      <div class="row top-buffer">
+        <div class="form-group">
+          <div class="col-lg-5 col-lg-offset-2">
+            <%= f.submit "Update", class: "btn btn-success btn-block" %>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>
+
+<div class="col-lg-4">
+  <div class="well bs-component">
+    <h3>Account Status: <%= current_user.role.capitalize %></h3>
+    <% if (current_user.role != "premium") %>
+      <%= form_tag charges_path do %>
+        <script class='stripe-button' src="https://checkout.stripe.com/checkout.js" data-key="<%= @stripe_btn_data[:key] %>" data-amount=<%= @stripe_btn_data[:amount] %> data-description="<%= @stripe_btn_data[:description] %>" ></script>
+      <% end %>
+    <% else %>
+      <%= link_to "Cancel my subscription", downgrade_path, data: { confirm: "Are you sure?" }, class: "btn btn-info" %></p>
+    <% end %>
   </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+  <div class="well bs-component">
+    <h3>Close my account</h3>
+    <p>Unhappy? <%= button_to "Close my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-warning" %></p>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+</div>

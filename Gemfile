@@ -39,3 +39,5 @@ source 'https://rubygems.org'
  gem 'figaro', '1.0'
  # Roles
  gem "pundit"
+ # money gateway
+ gem 'stripe'
