@@ -31,6 +31,9 @@ class WikisController < ApplicationController
   # POST /wikis
   def create
     @wiki = current_user.wikis.build(wiki_params)
+    if !current_user.admin? && !current_user.premium?
+      @wiki.private = false
+    end
 
     if @wiki.save
       redirect_to @wiki, notice: 'Wiki was successfully created.'
