@@ -7,13 +7,16 @@
         <h2>Log in</h2>
     </legend>
 
+    <div class="row top-buffer">
     <%= form_group_tag(resource.errors[:email]) do %>
       <%= f.label :email, class: "col-lg-2 control-label" %>
       <div class="col-lg-10">
         <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email" %>
       </div>
     <% end %>
-    <br /><br />
+    </div>
+
+    <div class="row top-buffer">
     <%= form_group_tag(resource.errors[:password]) do %>
       <%= f.label :password, class: "col-lg-2 control-label" %>
       <div class="col-lg-10">
@@ -29,12 +32,16 @@
 
       </div>
     <% end %>
+    </div>
 
-    <div class="form-group">
-      <div class="col-lg-10 col-lg-offset-2">
-        <%= f.submit "Log in", class: "btn btn-info" %>
+    <div class="row top-buffer">
+      <div class="form-group">
+        <div class="col-lg-10 col-lg-offset-2">
+          <%= f.submit "Log in", class: "btn btn-info" %>
+        </div>
       </div>
     </div>
+
   </fieldset>
 <% end %>
 <hr />

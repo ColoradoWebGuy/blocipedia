@@ -29,7 +29,6 @@
         <%= f.text_area :body, autocomplete: "off", class: "form-control", rows: 8%>
       </div>
 
-
       <div class="markdown-hints-container help-block pull-right">
         <div class="markdown-hints">
           <div class="markdown-bold">
@@ -64,13 +63,14 @@
   <div class="row top-buffer">
     <div class="form-group">
       <div class="col-lg-5 col-lg-offset-7">
-        <%= f.submit "Update Wiki", class: "btn btn-success btn-block" %>
+        <%= f.submit (@wiki.persisted? ? status = "Update Wiki" : status = "Add New Wiki"), class: "btn btn-success btn-block" %>
       </div>
     </div>
   </div>
 
   <hr />
 
+  <% if @wiki.persisted? %>
   <div class="row top-buffer">
     <div class="col-lg-2">Collaborators</div>
     <div class="col-lg-10">
@@ -85,5 +85,6 @@
       </div>
     </div>
   </div>
+  <% end %>
 
 <% end %>

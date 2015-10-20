@@ -1,16 +1,31 @@
-<h2>Resend confirmation instructions</h2>
-
+<div class="col-lg-8 col-lg-offset-2 well bs-component" style="margin-top:20px">
 <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+  <fieldset>
+    <legend>
+        <h2>Resend confirmation instructions</h2>
+    </legend>
+
   <%= devise_error_messages! %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %> 
+  <div class="row top-buffer">
+  <%= form_group_tag(resource.errors[:email]) do %>
+    <%= f.label :email, class: "col-lg-2 control-label" %>
+    <div class="col-lg-10">
+    <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email) %>
+    </div>
+  <% end %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Resend confirmation instructions" %>
+  <div class="row top-buffer">
+    <div class="form-group">
+      <div class="col-lg-10 col-lg-offset-2">
+        <%= f.submit "Resend confirmation instructions", class: "btn btn-info" %>
+      </div>
+    </div>
   </div>
+
+  </fieldset>
 <% end %>
-
+<hr />
 <%= render "devise/shared/links" %>
+</div>
