@@ -24,7 +24,11 @@
   <%= form_group_tag(@wiki.errors[:body]) do %>
     <%= f.label :body, class: "col-lg-2 control-label" %>
     <div class="col-lg-10">
-      <%= f.text_area :body, autocomplete: "off", class: "form-control", rows: 8%>
+
+      <div id="epiceditor">
+        <%= f.text_area :body, autocomplete: "off", class: "form-control", rows: 8%>
+      </div>
+
 
       <div class="markdown-hints-container help-block pull-right">
         <div class="markdown-hints">
@@ -59,8 +63,25 @@
 
   <div class="row top-buffer">
     <div class="form-group">
-      <div class="col-lg-5 col-lg-offset-2">
+      <div class="col-lg-5 col-lg-offset-7">
         <%= f.submit "Update Wiki", class: "btn btn-success btn-block" %>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row top-buffer">
+    <div class="col-lg-2">Collaborators</div>
+    <div class="col-lg-10">
+      <%= !@wiki.collaborators.empty? ? @wiki.collaborators.map{ |c|"<u>#{c.user.email}</u>" }.join(", ").html_safe : "There are no collaborators in this wiki."  %>
+    </div>
+  </div>
+
+  <div class="row top-buffer">
+    <div class="form-group">
+      <div class="col-lg-5 col-lg-offset-7">
+        <%= link_to "Edit Collaborators", wiki_collaborators_path(@wiki), class: "btn btn-info btn-block"%>
       </div>
     </div>
   </div>

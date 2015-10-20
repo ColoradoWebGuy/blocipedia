@@ -1,5 +1,5 @@
 
-<div class="col-lg-9 col-lg-offset-1">
+<div class="col-lg-10 col-lg-offset-1">
   <h1>Editing Wiki</h1>
   <div class="well clearfix">
     <%= render 'form' %>
@@ -9,3 +9,9 @@
     <%= link_to 'Back', wikis_path %>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    var editor = new EpicEditor().load();
+  });
+</script>

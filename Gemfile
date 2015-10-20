@@ -43,3 +43,5 @@ source 'https://rubygems.org'
  gem 'stripe'
  # markup
  gem 'redcarpet'
+ #
+ gem 'epic-editor-rails'
